@@ -25,7 +25,7 @@ A Raspberry Pi Zero possui 40 pinos de GPIO (General Purpose Input/Output), que 
 A pinagem dos periféricos é feitas de acordo com as informações descritas à seguir.
 
 ##### Push-Buttons:
-    1 - GPIO-5
+   	1 - GPIO-5
 	2 - GPIO-19
 	3 - GPIO-26
 
