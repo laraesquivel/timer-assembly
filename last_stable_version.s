@@ -84,8 +84,10 @@
         STR R0, [R2]	      @ escreve no registrador
 .endm
 
+
+@ passa um determinado valor para o pino selecionado
 .macro GPIOTurn pin, value
-MOV R1, \value
+	MOV R1, \value
         MOV R2, R8 @ address of gpio regs
         cmp R1, #0
         ADDEQ R2, #clrregoffset @ off set of clr reg
