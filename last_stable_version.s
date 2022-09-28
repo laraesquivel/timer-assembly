@@ -206,7 +206,7 @@
 
 
 .macro prefixNumberDisplay
-GPIOTurnOn pinRS
+	GPIOTurnOn pinRS
         GPIOTurnOff pinDB7
         GPIOTurnOff pinDB6
         GPIOTurnOn pinDB5
@@ -217,10 +217,9 @@ GPIOTurnOn pinRS
 
 .macro writeNumber value
 
-@displayClear
         prefixNumberDisplay
 
-GPIOTurn pinRS, #1
+	GPIOTurn pinRS, #1
 
         MOV R2,#1
         LSL R2,#3
@@ -280,14 +279,17 @@ _start:
         display
         entrySetMode
         .ltorg
-
+	
+@branch que define o tempo de contagem e é utilizada para reiniciar a contagem
 restart:
         mov R6, #0
         mov R5, #5
         displayClear
         writeNumber R5
         writeNumber R6
-        delay:
+	
+@branch que "segura" a execução do código se o botão de pause estiver pressionado
+delay:
         LDR R9, [R8, #level]
         MOV R11, #1
         LSL R11, #5
@@ -295,10 +297,9 @@ restart:
         cmp R10, #0
         beq delay
         
-        @nanoSleep2 time100ms
-        @nanoSleep2 time100ms
         nanoSleep2 time100ms
 
+@loop para só permitir iniciar a contagem quando o botão de start/pause for pressionado
 loop:
         GPIODirectionOut pin6
         GPIOTurn pin6, #1
@@ -314,6 +315,7 @@ loop:
         cmp R10, #0
         bne loop
 
+@branch que faz com que a contagem só inicie quando soltar o botão start/pause
 delay2:
         LDR R9, [R8, #level]
         MOV R11, #1
@@ -322,6 +324,7 @@ delay2:
         cmp R10, #0
         beq delay2
 
+@branch do contador que faz a temporização
 temporizador:
         displayClear
         writeNumber R5
@@ -334,8 +337,8 @@ temporizador:
         LSL R12, #19
 
 @----------------------------------------------------------------
-@ Este bloco de codigo irá fazer a leitura do botão 10 vezes a cada 100 ms. 
-@ Totalizando o timer de 1 s e captando mais precisamente as ações dos botões start/stop e restart.
+@ Este bloco de codigo irá fazer a leitura dos botões start/pause e restart 10 vezes a cada 100 ms. 
+@ Totalizando o timer de 1 s e captando mais precisamente as ações dos botões.
 
         ldr R9, [R8, #level]
         AND R10, R12, R9
@@ -438,19 +441,20 @@ temporizador:
         nanoSleep2 time100ms @wait 100 ms
 @------------------------------------------------------------------
 
+	@se o registrador de unidades for maior que 1, subtrai 1 e volta pro inicio da branch
         CMP R6, #0
         SUBNE R6, #1
         BGT temporizador
 
+	@se o registrador de unidades for zero estas instruções são executadas
+	@é verificado se o registrador de dezenas também é zero
+	@se não for zero, subtrai 1 do registrador de dezena e atribui 9 ao registrador de unidade
+	@se for zero é feito um desvio para a branch de restart
         CMP R5, #0
         SUBNE R5, #1
         MOVNE R6, #9
         BNE temporizador
 
-        @cmp R5, #0
-        @bne temporizador
-        @CMP R6, #0
-        @BGE temporizador
         GPIOTurn pin6, #0
         B restart
        
