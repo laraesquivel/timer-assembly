@@ -22,7 +22,6 @@
 .equ nano_sleep, 162	@ syscall para realizar uma pausa na execução do programa
 .equ level, 52
 
-
 .global _start
 
 @ pausa a execução do programa
