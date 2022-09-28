@@ -65,6 +65,17 @@ A pinagem dos periféricos é feitas de acordo com as informações descritas à
 	D6: GPIO-20
 	D7: GPIO-21
 
+### Display
+Para a utilização do display LCD HD44780U foram implementadas as instruções presentes na [documentação oficial](https://www.google.com/url?sa=t&source=web&rct=j&url=https://www.sparkfun.com/datasheets/LCD/HD44780.pdf&ved=2ahUKEwjso46tlqn6AhVGL7kGHSe6BMEQFnoECGIQAQ&usg=AOvVaw076YT-P88DM3oFFvTDUv43) do mesmo através de código em assembly, de forma que os bits fossem tranferidos pelos pinos do display.
+
+As instruções implementadas incluem: inicializar, limpar, escrever um dígito no display, entre outras descritas na documentação. Além dessas, também foram implementadas outras que possibilitam a realização da contagem.
+
+O código em assembly responsável por controlar o display está presente em [display.s]().
+
+### Temporizador
+
+Foi implementado um temporizador, o qual é controlado atráves dos butões da placa: um para iniciar e pausar a contagem(GPIO-5) e outro para reiniciar. O temporizador conta a partir de números com no máximo duas casas deciamais.
+
 ### Arquitetura ARMv6
 O processador da Raspberry Pi Zero possui arquitetura ARMv6, isso implica na utilização do conjunto de instruções da linguagem assembly desta arquitetura para a solução do problema. O ARMv6 é uma arquitetura RISC, o que implica em um conjunto de instruções mais simples e pequeno. Os processadores ARM fornecem registradores de propósito geral e de propósito especial. Alguns registros adicionais estão disponíveis em modos de execução privilegiados.
 
@@ -90,7 +101,6 @@ Os registradores do processador têm 32 bits de tamanho.
 
 ### Como Executar
 
-
 <div id="executar">
 	<h1>Como executar</h1>
 		<p>
@@ -110,27 +120,36 @@ Os registradores do processador têm 32 bits de tamanho.
 		</ul>
 		</p>
 </div>
-#### Transferência de Dados
 
-Move dados entre a memória e os registradores.
+### Tipos de Instruçoes
 
-#### Lógica
+-Instruções aritméticas fornecem a capacidade computacional para processamento de dados numéricos. 
+-Instruções lógicas (booleanas) operam sobre bits de uma palavra, como bits e não como números
+-Transferência de dados move dados entre a memória e os registradores.
+-Instruções de desvio são utilizadas para desviar a execução do programa para uma nova instrução.
 
-Instruções lógicas (booleanas) operam sobre bits de uma palavra, como bits e não como números.
+## Testes
+Teste do projeto em geral foram feitos a partir de casos de testes.
 
-#### Desvio
-Instruções de desvio são utilizadas para desviar a execução do programa para uma nova instrução.
+1- Iniciar contagem clicando o botão
+2- Inciar contagem segurando o botão 
+3- Pausar a contagem clicando o botão
+4- Pausar a contagem segurando o botão
+5- Reiniciar a contagem clicando o botão 
+6- Reiniciar a contagrm segurando o botão
+7- Contagem de um dígito visivel no display
+8- Contagem de dois dígitos visivel no display
+9- Trocar contagem de dois dígitos para um 
+10- Trocar contagem de um dígito para dois
+11- Clear deve ocorrer ao iniciar o display
+12- Clear deve ocorrer antes de escrever um dígito
 
-### Display
-Para a utilização do display LCD HD44780U foram implementadas as instruções presentes na [documentação oficial](https://www.google.com/url?sa=t&source=web&rct=j&url=https://www.sparkfun.com/datasheets/LCD/HD44780.pdf&ved=2ahUKEwjso46tlqn6AhVGL7kGHSe6BMEQFnoECGIQAQ&usg=AOvVaw076YT-P88DM3oFFvTDUv43) do mesmo através de código em assembly, de forma que os bits fossem tranferidos pelos pinos do display.
+## Conclusão
 
-As instruções implementadas incluem: inicializar, limpar, escrever um dígito no display, entre outras descritas na documentação. Além dessas, também foram implementadas outras que possibilitam a realização da contagem.
+Um aplicativo de temporização foi desenvolvido em Assembly em uma Raspberry Pi Zero W, a qual possui um processador de arquitetura ARMv6. Por meio desta aplicação é possível realizar contagens regressivadas de um segundo de 0 a 99. Além de  iniciar e parar a contagem no mesmo botão, e em outro reiniciar a contagem. A qual a partir do código é possível modificar o valor que será contato e todo o processo pode ser visualizado do display LCD em anexo a Raspberry.
 
-O código em assembly responsável por controlar o display está presente em [display.s]().
+Todavia, o código está fortemente acoplado, e não foi possível no momento fazer a biblioteca sem que o código parasse de funcionar, precisariamos de mais tempo, em torno de uma semana para tornar a parte do display como uma biblioteca, além de aumentar a quantidade de dígitos do display. Com esses ajustes futuros, o código pode ser corrigido e reutilizado como biblioteca em breve.
 
-### Temporizador
-
-Foi implementado um temporizador, o qual é controlado atráves dos butões da placa: um para iniciar e pausar a contagem(GPIO-5) e outro para reiniciar. O temporizador conta a partir de números com no máximo duas casas deciamais.
 
 ## Materiais de referência
 [Raspberry Pi Documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-zero-w)
