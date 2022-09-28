@@ -41,7 +41,7 @@ Este projeto consiste na implementação de uma aplicação em Assembly respons�
 	<div id="image11" style="display: inline_block" align="center">
 		<img src="/raspberrykit.jpeg"/><br>
 		<p>
-		
+			Kit Completo do Laboratório.
 		</p>
 	</div>
 
@@ -66,7 +66,7 @@ A pinagem dos periféricos é feitas de acordo com as informações descritas à
 	D7: GPIO-21
 
 ### Arquitetura ARMv6
-O processador da Raspberry Pi Zero possui arquitetura ARMv6, isso implica na utilização do conjunto de instruções da linguagem assembly desta arquitetura para a solução do problema. O ARMv6 é um processador de arquitetura RISC, o que implica em um conjunto de instruções mais simples e pequeno. Os processadores ARM fornecem registradores de propósito geral e de propósito especial. Alguns registros adicionais estão disponíveis em modos de execução privilegiados.
+O processador da Raspberry Pi Zero possui arquitetura ARMv6, isso implica na utilização do conjunto de instruções da linguagem assembly desta arquitetura para a solução do problema. O ARMv6 é uma arquitetura RISC, o que implica em um conjunto de instruções mais simples e pequeno. Os processadores ARM fornecem registradores de propósito geral e de propósito especial. Alguns registros adicionais estão disponíveis em modos de execução privilegiados.
 
 Em todos os processadores ARM, os seguintes registradores estão disponíveis e acessíveis em qualquer modo de processador:
 
@@ -91,27 +91,12 @@ Os registradores do processador têm 32 bits de tamanho.
 ### Como Executar
 
 
-			<div id="executar">
+<div id="executar">
 	<h1>Como executar</h1>
 		<p>
-		Os arquivos base do códgio assembly encontra-se no caminho diretório (/pbl-sistemas-digitais/PBL/) e são denominados:
+		Os arquivos base do códgio assembly encontra-se no caminho diretório (timer-assembly). Em conjunto está em anexo, o arquivo com o display e os botões, ContadorP-2P.s e display.s, os quais não fazem parte da versão final do projeto, todavia foram códigos base para a constução da versão final.
 		</p>
-		<ul>
-			<li>uartConfig.s</li>
-			<p>Arquivo principal o qual é usado para a configuração da UART</p>
-		</ul>
-		<ul>
-			<li>uartDateL.s</li>
-			<p>Arquivo de envio de dado e teste de loopback</p>
-		</ul>
-		<ul>
-			<li>uartDateO.s</li>
-			<p>Arquivo que implementa um loop de envio de dados para serem visualizados via osciloscópio</p>
-		</ul>
-		<ul>
-			<li>macros.s</li>
-			<p>Arquivo que implementa um macro de impressão na tela (print) para a utilização em outras partes do sistema</p>
-		</ul>
+
 		<p>
 			Para executar o produto desenvolvido, utiliza-se o arquivo makefile. 
 			Para isso, dentro de um terminal linux, abra o diretório que contém os arquivos bases mencionados anteriormente e execute os seguinte comando:
@@ -120,7 +105,7 @@ Os registradores do processador têm 32 bits de tamanho.
 			<p>Cria o executável</p>
 		</ul>
 		<ul>
-			<li>sudo ./UartDateL</li>
+			<li>sudo ./last_stable_version</li>
 			<p>Executa o programa</p>
 		</ul>
 		</p>
