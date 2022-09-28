@@ -100,34 +100,48 @@ Doubleword - 64 bits.
 Os registradores do processador têm 32 bits de tamanho.
 
 ### Como Executar
+Os arquivos base do códgio assembly encontra-se no caminho diretório (timer-assembly). Em conjunto está em anexo, o arquivo com o display e os botões, ContadorP-2P.s e display.s, os quais não fazem parte da versão final do projeto, todavia foram códigos base para a constução da versão final. ara executar o produto desenvolvido, utiliza-se o arquivo makefile. Para isso, dentro de um terminal linux, abra o diretório que contém os arquivos bases mencionados anteriormente e execute os seguinte comando:
 
-<div id="executar">
-	<h1>Como executar</h1>
-		<p>
-		Os arquivos base do códgio assembly encontra-se no caminho diretório (timer-assembly). Em conjunto está em anexo, o arquivo com o display e os botões, ContadorP-2P.s e display.s, os quais não fazem parte da versão final do projeto, todavia foram códigos base para a constução da versão final.
-		</p>
+-	make all
+- sudo ./last_stable_version
 
-		<p>
-			Para executar o produto desenvolvido, utiliza-se o arquivo makefile. 
-			Para isso, dentro de um terminal linux, abra o diretório que contém os arquivos bases mencionados anteriormente e execute os seguinte comando:
-		<ul>
-			<li>make all</li>
-			<p>Cria o executável</p>
-		</ul>
-		<ul>
-			<li>sudo ./last_stable_version</li>
-			<p>Executa o programa</p>
-		</ul>
-		</p>
-</div>
 
 ### Tipos de Instruçoes
 
--Instruções aritméticas fornecem a capacidade computacional para processamento de dados numéricos. 
--Instruções lógicas (booleanas) operam sobre bits de uma palavra, como bits e não como números
--Transferência de dados move dados entre a memória e os registradores.
--Instruções de desvio são utilizadas para desviar a execução do programa para uma nova instrução.
+#### Instruções aritméticas 
+	Instruções aritméticas fornecem a capacidade computacional para processamento de dados numéricos. Abaixo estão as instruções utilizadas no código:
+	-ADD - adição
+	-SUB - subtração
 
+#### Instruções lógicas (booleanas) operam sobre bits de uma palavra, como bits e não como números
+Instruções lógicas (booleanas) operam sobre bits de uma palavra, como bits e não como números. Abaixo estão as instruções utilizadas no código:
+	-AND - função lógica "and"
+	-ORR - função lógica "or"
+	-LSL - deslocamento de bits para a esquerda
+
+#### Transferência de dados 
+Transferência de dados move dados entre a memória e os registradores. Abaixo estão as instruções utilizadas no código:
+
+	-LDR - carrega da memória para o registrador
+	-STR - carrega do registrador para a memória
+	-MOV - move valor para os registradores
+
+#### Instruções de desvio são utilizadas para desviar a execução do programa para uma nova instrução
+Instruções de desvio são utilizadas para desviar a execução do programa para uma nova instrução. Todas as instruções utilizadas estão abaixo:
+
+	-B - desvio incondicional
+	-BEQ - desvio se condição for igual a zero
+	-BLEQ - desvia e depois retorna para onde parou se a condição for igual a zero
+	-BGT - desvia se a condição for maior que zero
+	-BNE - desvia se a condição for diferente de zero
+
+#### Instruções aritmética com logicas e com desvio.
+Instruções que convenientemente se associam a outras criando um desvio a partir de uma condicional. As instruções utilizadas estão abaixo:
+
+	-ADDEQ - adição se o a flag levantada for de valores igual 
+	-SUBNE - subtração se a flag levantada for de valores diferentes
+	-MOVNE- movimentação de dados se a flag levantada for de valores diferentes
+ 
 ## Testes
 Teste do projeto em geral foram feitos a partir de casos de testes.
 
